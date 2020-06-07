@@ -1,0 +1,28 @@
+{
+  "name": "home",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "antd": "^4.2.5",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-router-dom": "^5.2.0",
+    "serve": "^11.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.6",
+    "@babel/preset-react": "^7.8.3",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.5.3",
+    "html-webpack-plugin": "git://github.com/ScriptedAlchemy/html-webpack-plugin#master",
+    "style-loader": "^1.2.1",
+    "webpack": "^5.0.0-beta.16",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --open --mode development --liveReload",
+    "build": "webpack --mode production",
+    "serve": "serve dist -p 3002"
+  }
+}
