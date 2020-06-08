@@ -31,7 +31,7 @@ module.exports = {
       filename: "remoteEntry.js",
       remotes: {},
       exposes: {
-        Carousel: "../src/Carousel",
+        "./Carousel": "../src/Carousel",
       },
       shared: ["react"],
     }),

@@ -48,7 +48,7 @@ module.exports = {
         nav: "nav",
       },
       exposes: {
-        atoms: "./src/atoms",
+        "./atoms": "./src/atoms",
       },
       shared: ["react", "recoil"],
     }),

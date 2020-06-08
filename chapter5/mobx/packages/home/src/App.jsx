@@ -5,7 +5,7 @@ import { observable } from "mobx";
 
 import "./index.css";
 
-const store = observable({
+const cartStore = observable({
   count: 0,
 });
 

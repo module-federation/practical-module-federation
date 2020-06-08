@@ -36,7 +36,7 @@ module.exports = {
       filename: "remoteEntry.js",
       remotes: {},
       exposes: {
-        Widget: "./src/Widget",
+        "./Widget": "./src/Widget",
       },
       shared: ["react"],
     }),

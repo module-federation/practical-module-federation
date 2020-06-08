@@ -46,7 +46,7 @@ module.exports = {
         search: "search",
       },
       exposes: {
-        Profile: "./src/Profile",
+        "./Profile": "./src/Profile",
       },
       shared: ["react", "react-dom", "antd"],
     }),

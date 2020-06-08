@@ -88,7 +88,7 @@ const App = () => (
       system={{
         url: "http://localhost:8082/remoteEntry.js",
         scope: "widget",
-        module: "Widget",
+        module: "./Widget",
       }}
     />
     <div>Hi there, I'm React from React.</div>

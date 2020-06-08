@@ -49,7 +49,7 @@ module.exports = {
         home: "home",
       },
       exposes: {
-        Header: "./src/Header",
+        "./Header": "./src/Header",
       },
       shared: ["react", "recoil"],
     }),

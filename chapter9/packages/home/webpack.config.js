@@ -45,7 +45,7 @@ module.exports = {
         search: "search",
         profile: "profile",
       },
-      exposes: { Home: "./src/Home" },
+      exposes: { "./Home": "./src/Home" },
       shared: ["react", "react-dom", "antd"],
     }),
     new HtmlWebpackPlugin({

@@ -1,5 +1,5 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { ModuleFederationPlugin } = require("webpack").container;
 
 module.exports = {
   resolve: {
@@ -33,11 +33,11 @@ module.exports = {
       filename: "remoteEntry.js",
       remotes: {},
       exposes: {
-        Header: "./src/index",
+        "./Header": "./src/index",
       },
       shared: ["react"],
     }),
-    new HtmlWebPackPlugin({
+    new HtmlWebpackPlugin({
       template: "./src/index.html",
     }),
   ],

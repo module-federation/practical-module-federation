@@ -30,7 +30,7 @@ module.exports = {
       filename: "remoteEntry.js",
       remotes: {},
       exposes: {
-        Header: "./src/header",
+        "./Header": "./src/header",
       },
       shared: ["react"],
     }),
