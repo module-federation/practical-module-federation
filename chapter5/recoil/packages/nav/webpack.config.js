@@ -1,6 +1,7 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
+const deps = require("./package.json").dependencies;
 module.exports = {
   entry: "./src/index",
   cache: false,
@@ -43,15 +44,24 @@ module.exports = {
   plugins: [
     new ModuleFederationPlugin({
       name: "nav",
-      library: { type: "var", name: "nav" },
       filename: "remoteEntry.js",
       remotes: {
-        home: "home",
+        home: "home@http://localhost:8080/remoteEntry.js",
       },
       exposes: {
         "./Header": "./src/Header",
       },
-      shared: ["react", "recoil"],
+      shared: {
+        ...deps,
+        react: {
+          singleton: true,
+          requiredVersion: deps.react,
+        },
+        "react-dom": {
+          singleton: true,
+          requiredVersion: deps["react-dom"],
+        },
+      },
     }),
     new HtmlWebPackPlugin({
       template: "./src/index.html",

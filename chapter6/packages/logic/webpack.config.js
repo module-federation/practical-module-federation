@@ -26,7 +26,6 @@ module.exports = {
   plugins: [
     new ModuleFederationPlugin({
       name: "logic",
-      library: { type: "var", name: "logic" },
       filename: "remoteEntry.js",
       remotes: {},
       exposes: {
