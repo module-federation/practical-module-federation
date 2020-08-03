@@ -59,10 +59,11 @@ const DynamicWidget = ({ url, scope, module, ...props }) => {
   window[scope].init(
     Object.assign(
       {
-        react: {
-          get: () => Promise.resolve(() => require("react")),
-          loaded: true,
-        },
+        react: { [require("react").version]: {
+            get: () => Promise.resolve(() => require("react")),
+            loaded: true,
+            from: "host"
+          }},
       },
       global.__webpack_require__ ? global.__webpack_require__.o : {}
     )
