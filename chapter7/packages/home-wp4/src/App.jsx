@@ -56,24 +56,23 @@ const DynamicWidget = ({ url, scope, module, ...props }) => {
     return <h2>Failed to load dynamic script: {url}</h2>;
   }
 
-  window[scope].init(
-    Object.assign(
-      {
-        react: { [require("react").version]: {
-            get: () => Promise.resolve(() => require("react")),
-            loaded: true,
-            from: "host"
-          }},
-      },
-      global.__webpack_require__ ? global.__webpack_require__.o : {}
-    )
-  );
-
-  const Component = React.lazy(() =>
-    window[scope].get(module).then((factory) => {
-      const Module = factory();
-      return Module;
-    })
+  const Component = React.lazy(
+    () =>
+      new Promise(resolve, () => {
+        console.log([scope, module]);
+        // Initializes the share scope. This fills it with known provided modules from this build and all remotes
+        __webpack_init_sharing__("default").then(() => {
+          const container = window[scope]; // or get the container somewhere else
+          // Initialize the container, it may provide shared modules
+          container.init(__webpack_share_scopes__.default).then(() => {
+            window[scope].get(module).then((factory) => {
+              const Module = factory();
+              console.log(Module);
+              resolve(Module);
+            });
+          });
+        });
+      })
   );
 
   return (
