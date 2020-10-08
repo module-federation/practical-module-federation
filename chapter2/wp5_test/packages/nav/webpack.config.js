@@ -31,7 +31,7 @@ module.exports = {
     new ModuleFederationPlugin({
       name: "nav",
       filename: "remoteEntry.js",
-      remotes: {},
+      library: { type: "assign", name: "nav" },
       exposes: {
         "./Header": "./src/index",
       },

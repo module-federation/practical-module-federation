@@ -45,8 +45,8 @@ const useDynamicScript = (url) => {
   };
 };
 
-const DynamicWidget = ({ url, scope, module, ...props }) => {
-  const { ready, failed } = useDynamicScript(url);
+const DynamicWidget = ({url, scope, module, ...props}) => {
+  const {ready, failed} = useDynamicScript(url);
 
   if (!ready) {
     return <h2>Loading dynamic script: {url}</h2>;
@@ -56,26 +56,39 @@ const DynamicWidget = ({ url, scope, module, ...props }) => {
     return <h2>Failed to load dynamic script: {url}</h2>;
   }
 
-  window[scope].init(
-    Object.assign(
-      {
-        react: { [require("react").version]: {
-            get: () => Promise.resolve(() => require("react")),
-            loaded: true,
-            from: "host"
-          }},
-      },
-      global.__webpack_require__ ? global.__webpack_require__.o : {}
-    )
+  const Component = React.lazy(
+    () =>
+      new Promise((resolve) => {
+        console.log([scope, module]);
+        const react = require("react")
+        //might not be a promise, and might not be thennable
+        const legacyShareScope = {
+          react: {
+            [react.version || "10.0.0"]: {
+              get: () => new Promise(resolve => {
+                resolve(() => require('react'))
+              }),
+              loaded: true,
+              from: "webpack4"
+            }
+          }
+        }
+        console.log(legacyShareScope)
+        const container = window[scope]; // or get the container somewhere else
+        // Initialize the container, it may provide shared modules
+        new Promise((resolve) => {
+          resolve(container.init(legacyShareScope))
+        }).then(() => {
+          console.log('then')
+          window[scope].get(module).then((factory) => {
+            console.log(factory())
+            const Module = factory();
+            console.log(Module);
+            resolve(Module);
+          })
+        });
+      })
   );
-
-  const Component = React.lazy(() =>
-    window[scope].get(module).then((factory) => {
-      const Module = factory();
-      return Module;
-    })
-  );
-
   return (
     <React.Suspense fallback="Loading System">
       <Component {...props} />
@@ -94,4 +107,4 @@ const App = () => (
   </div>
 );
 
-ReactDOM.render(<App />, document.getElementById("app"));
+ReactDOM.render(<App/>, document.getElementById("app"));
