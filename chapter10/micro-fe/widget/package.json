@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "webpack --mode production",
-    "start": "cd dist && PORT=3002 npx servor"
+    "start": "webpack --mode production && cd dist && PORT=3002 npx servor"
   },
   "license": "MIT",
   "author": {
