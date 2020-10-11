@@ -2,19 +2,15 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 const deps = require("./package.json").dependencies;
-module.exports = {
-  output: {
-    publicPath: "http://localhost:8080/",
-  },
 
+module.exports = {
+  devServer: {
+    port: 8081,
+    historyApiFallback: true,
+  },
   resolve: {
     extensions: [".jsx", ".js", ".json"],
   },
-
-  devServer: {
-    port: 8080,
-  },
-
   module: {
     rules: [
       {
@@ -35,15 +31,18 @@ module.exports = {
           loader: "babel-loader",
         },
       },
+      {
+        test: /\.(png|svg|jpg|gif|woff|ttf|woff2|eot)$/,
+        use: ["file-loader"],
+      },
     ],
   },
-
   plugins: [
     new ModuleFederationPlugin({
       name: "home",
       filename: "remoteEntry.js",
       remotes: {
-        "mf-nav": "nav@http://localhost:8081/remoteEntry.js",
+        admin: "admin@http://localhost:8080/remoteEntry.js",
       },
       exposes: {},
       shared: {

@@ -1,5 +1,5 @@
 {
-  "name": "home",
+  "name": "wp5-starter-react",
   "version": "1.0.0",
   "scripts": {
     "build": "webpack --mode production",
@@ -23,7 +23,6 @@
     "webpack-dev-server": "3.11.0"
   },
   "dependencies": {
-    "nav": "1.0.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0"
   }

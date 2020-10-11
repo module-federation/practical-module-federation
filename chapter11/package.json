@@ -1,0 +1,15 @@
+{
+  "name": "cms-poc",
+  "private": true,
+  "scripts": {
+    "build": "yarn workspaces run build",
+    "start": "concurrently \"wsrun --parallel start\""
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "wsrun": "^5.2.0"
+  }
+}

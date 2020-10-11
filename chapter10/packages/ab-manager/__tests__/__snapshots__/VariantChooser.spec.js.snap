@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should pick variant A 1`] = `
+<div>
+  A
+</div>
+`;
+
+exports[`Should pick variant A 2`] = `
+<div>
+  B
+</div>
+`;

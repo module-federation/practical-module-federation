@@ -1,10 +1,9 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 const deps = require("./package.json").dependencies;
 module.exports = {
   output: {
-    publicPath: "http://localhost:8080/",
+    publicPath: "http://localhost:8081/",
   },
 
   resolve: {
@@ -12,7 +11,7 @@ module.exports = {
   },
 
   devServer: {
-    port: 8080,
+    port: 8081,
   },
 
   module: {
@@ -23,10 +22,6 @@ module.exports = {
         resolve: {
           fullySpecified: false,
         },
-      },
-      {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.(js|jsx)$/,
@@ -40,12 +35,16 @@ module.exports = {
 
   plugins: [
     new ModuleFederationPlugin({
-      name: "home",
+      name: "ab_mgr",
+      library: { type: "var", name: "ab_mgr" },
       filename: "remoteEntry.js",
       remotes: {
-        "mf-nav": "nav@http://localhost:8081/remoteEntry.js",
+        "ab-manager": "ab_mgr",
       },
-      exposes: {},
+      exposes: {
+        "./VariantChooser": "./src/VariantChooser",
+        "./variants": "./src/variants",
+      },
       shared: {
         ...deps,
         react: {
@@ -57,9 +56,6 @@ module.exports = {
           requiredVersion: deps["react-dom"],
         },
       },
-    }),
-    new HtmlWebPackPlugin({
-      template: "./src/index.html",
     }),
   ],
 };

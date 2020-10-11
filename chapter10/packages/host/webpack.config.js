@@ -40,12 +40,16 @@ module.exports = {
 
   plugins: [
     new ModuleFederationPlugin({
-      name: "home",
+      name: "host",
       filename: "remoteEntry.js",
       remotes: {
-        "mf-nav": "nav@http://localhost:8081/remoteEntry.js",
+        "ab-manager": "ab_mgr@http://localhost:8081/remoteEntry.js",
+        host: "host@http://localhost:8080/remoteEntry.js",
       },
-      exposes: {},
+      exposes: {
+        "./FrameA": "./src/FrameA",
+        "./FrameB": "./src/FrameB",
+      },
       shared: {
         ...deps,
         react: {

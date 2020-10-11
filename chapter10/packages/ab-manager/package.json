@@ -1,8 +1,9 @@
 {
-  "name": "home",
+  "name": "ab-manager",
   "version": "1.0.0",
   "scripts": {
-    "build": "webpack --mode production",
+    "test": "jest",
+    "build": "webpack --mode development",
     "start": "webpack-dev-server --open --mode development",
     "start:live": "webpack-dev-server --open --mode development --liveReload"
   },
@@ -13,17 +14,18 @@
   },
   "devDependencies": {
     "@babel/core": "7.9.6",
+    "@babel/preset-env": "^7.10.3",
     "@babel/preset-react": "7.9.4",
+    "babel-jest": "^26.0.1",
     "babel-loader": "8.1.0",
-    "css-loader": "^3.5.3",
-    "html-webpack-plugin": "^4.5.0",
-    "style-loader": "1.2.1",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "jest": "^26.0.1",
+    "react-test-renderer": "^16.13.1",
     "webpack": "5.0.0",
     "webpack-cli": "3.3.11",
     "webpack-dev-server": "3.11.0"
   },
   "dependencies": {
-    "nav": "1.0.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0"
   }
