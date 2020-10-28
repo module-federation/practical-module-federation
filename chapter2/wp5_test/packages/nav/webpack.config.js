@@ -9,9 +9,6 @@ module.exports = {
   output: {
     publicPath: "http://localhost:3001/",
   },
-  resolve: {
-    extensions: [".jsx", ".js", ".json"],
-  },
   module: {
     rules: [
       {
